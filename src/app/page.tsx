@@ -1,6 +1,6 @@
 // src/app/page.tsx
 import * as React from "react";
-import { Typography, Button, Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 
 export default function Home() {
   return (
