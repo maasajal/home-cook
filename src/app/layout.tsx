@@ -15,9 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Home Cook",
+  title: {
+    default: "Home Cook - Baburchi",
+    template: "%s | Baburchi",
+  },
   description:
-    "Order a chef to cook delicious meals at your home instead of order food at your home & enjoy your party",
+    "Order a chef (Baburchi) to cook delicious meals at your home instead of order food at your home & enjoy your party",
 };
 
 export default function RootLayout({

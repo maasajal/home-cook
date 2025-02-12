@@ -13,6 +13,9 @@ import {
 // MUI Icons
 import MenuIcon from "@mui/icons-material/Menu";
 
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+
 const navItems = [
   {
     name: "Home",
@@ -30,9 +33,16 @@ const navItems = [
     name: "Orders",
     path: "/orders",
   },
+  {
+    name: "Dashboard",
+    path: "/dashboard",
+  },
 ];
 
 const Navbar = () => {
+  const { data: session, status } = useSession();
+  console.log("Navbar session", session, status);
+
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -71,7 +81,7 @@ const Navbar = () => {
               },
             }}
           >
-            Home Cook
+            Baburchi
           </Typography>
 
           {/* Mobile Menu */}
@@ -103,15 +113,14 @@ const Navbar = () => {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {navItems.map((page) => (
-                <Button
-                  key={page.path}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, display: "block", color: "black" }}
-                >
-                  <Link href={page.path} className="no-underline">
+                <Link key={page.path} href={page.path} className="no-underline">
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, display: "block", color: "black" }}
+                  >
                     {page.name}
-                  </Link>
-                </Button>
+                  </Button>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -149,49 +158,91 @@ const Navbar = () => {
             }}
           >
             {navItems.map((page) => (
-              <Button
-                key={page.path}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                  "&:hover": {
-                    color: "#FFA500", // Orange color on hover
-                    transform: "scale(1.1)", // Slight scale effect on hover
-                  },
-                  transition: "all 0.3s ease", // Smooth transition
-                }}
-              >
-                <Link href={page.path} className="no-underline">
+              <Link key={page.path} href={page.path} className="no-underline">
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    "&:hover": {
+                      color: "#FFA500", // Orange color on hover
+                      transform: "scale(1.1)", // Slight scale effect on hover
+                    },
+                    transition: "all 0.3s ease", // Smooth transition
+                  }}
+                >
                   {page.name}
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             ))}
           </Box>
 
           {/* Order Now Button */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-                backgroundColor: "#FFA500", // Orange background
-                "&:hover": {
-                  backgroundColor: "#FF8C00", // Darker orange on hover
-                  transform: "scale(1.05)", // Slight scale effect on hover
-                },
-                transition: "all 0.3s ease", // Smooth transition
-                borderRadius: "8px", // Rounded corners
-                padding: "8px 16px", // Padding for better appearance
-              }}
-            >
-              <Link href="/" className="no-underline font-bold">
-                Order Now
+          <Box sx={{ flexGrow: 0, ml: 5 }}>
+            {session ? (
+              <>
+                <div className="flex gap-2 items-center">
+                  <div>
+                    {session?.user?.name} <br />
+                    {session?.user?.role}
+                  </div>
+                  <div>
+                    <Image
+                      src={session?.user?.image}
+                      alt={session?.user?.name}
+                      width={50}
+                      height={50}
+                      className="rounded-full"
+                    />
+                  </div>
+                  <Button
+                    variant="contained"
+                    onClick={() => signOut()}
+                    className="bg-red-500 animate-bounce text-white px-4 py-2 rounded"
+                    sx={{
+                      my: 2,
+                      color: "white",
+                      display: "block",
+                      backgroundColor: "#FFA500", // Orange background
+                      "&:hover": {
+                        backgroundColor: "#FF8C00", // Darker orange on hover
+                        transform: "scale(1.05)", // Slight scale effect on hover
+                      },
+                      transition: "all 0.3s ease", // Smooth transition
+                      borderRadius: "8px", // Rounded corners
+                      padding: "8px 16px", // Padding for better appearance
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <Link href="/auth">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    // color: "white",
+                    display: "block",
+                    backgroundColor: "#FFA500", // Orange background
+                    "&:hover": {
+                      backgroundColor: "#FF8C00", // Darker orange on hover
+                      transform: "scale(1.05)", // Slight scale effect on hover
+                    },
+                    transition: "all 0.3s ease", // Smooth transition
+                    borderRadius: "8px", // Rounded corners
+                    padding: "8px 16px", // Padding for better appearance
+                  }}
+                  className="animate-bounce px-4 py-2 rounded font-bold"
+                >
+                  Login
+                </Button>
               </Link>
-            </Button>
+            )}
           </Box>
         </Toolbar>
       </motion.div>
