@@ -41,7 +41,7 @@ const navItems = [
 
 const Navbar = () => {
   const { data: session, status } = useSession();
-  console.log("Navbar session", session, status);
+  // console.log("Navbar session", session, status);
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
@@ -189,8 +189,8 @@ const Navbar = () => {
                   </div>
                   <div>
                     <Image
-                      src={session?.user?.image}
-                      alt={session?.user?.name}
+                      src={`${session?.user?.image}`}
+                      alt={`${session?.user?.name}`}
                       width={50}
                       height={50}
                       className="rounded-full"
