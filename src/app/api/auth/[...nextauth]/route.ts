@@ -7,7 +7,7 @@ import { connectDB } from "@/lib/db";
 import User from "@/lib/models/User";
 
 // Define NextAuth options
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
