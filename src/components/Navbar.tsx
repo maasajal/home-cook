@@ -184,13 +184,13 @@ const Navbar = () => {
               <>
                 <div className="flex gap-2 items-center">
                   <div>
-                    {session?.user?.name} <br />
-                    {session?.user?.role}
+                    {session?.user?.name || "Guest"} <br />
+                    {session?.user?.role || "User"}
                   </div>
                   <div>
                     <Image
-                      src={`${session?.user?.image}`}
-                      alt={`${session?.user?.name}`}
+                      src={session?.user?.image || "/default-avatar.png"}
+                      alt={session?.user?.name || "User Avatar"}
                       width={50}
                       height={50}
                       className="rounded-full"

@@ -98,7 +98,13 @@ export default function AuthPage() {
               defaultValue=""
               rules={{ required: "Name is required" }}
               render={({ field }) => (
-                <TextField {...field} label="Name" fullWidth error={!!errors.name} helperText={errors.name?.message} />
+                <TextField
+                  {...field}
+                  label="Name"
+                  fullWidth
+                  error={!!errors.name}
+                  helperText={errors.name?.message}
+                />
               )}
             />
           )}
@@ -107,9 +113,18 @@ export default function AuthPage() {
             name="email"
             control={control}
             defaultValue=""
-            rules={{ required: "Email is required", pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email" } }}
+            rules={{
+              required: "Email is required",
+              pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email" },
+            }}
             render={({ field }) => (
-              <TextField {...field} label="Email" fullWidth error={!!errors.email} helperText={errors.email?.message} />
+              <TextField
+                {...field}
+                label="Email"
+                fullWidth
+                error={!!errors.email}
+                helperText={errors.email?.message}
+              />
             )}
           />
 
@@ -117,9 +132,19 @@ export default function AuthPage() {
             name="password"
             control={control}
             defaultValue=""
-            rules={{ required: "Password is required", minLength: { value: 6, message: "Min 6 characters" } }}
+            rules={{
+              required: "Password is required",
+              minLength: { value: 6, message: "Min 6 characters" },
+            }}
             render={({ field }) => (
-              <TextField {...field} type="password" label="Password" fullWidth error={!!errors.password} helperText={errors.password?.message} />
+              <TextField
+                {...field}
+                type="password"
+                label="Password"
+                fullWidth
+                error={!!errors.password}
+                helperText={errors.password?.message}
+              />
             )}
           />
 
@@ -133,11 +158,24 @@ export default function AuthPage() {
                 className="hidden"
                 id="upload-image"
               />
-              <label htmlFor="upload-image" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="upload-image"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <CloudUploadIcon />
-                <span>{imageFile?.length ? imageFile[0].name : "Upload Profile Image"}</span>
+                <span>
+                  {imageFile?.length
+                    ? imageFile[0].name
+                    : "Upload Profile Image"}
+                </span>
               </label>
-              {imagePreview && <Avatar src={imagePreview} className="mx-auto" sx={{ width: 80, height: 80 }} />}
+              {imagePreview && (
+                <Avatar
+                  src={imagePreview}
+                  className="mx-auto"
+                  sx={{ width: 80, height: 80 }}
+                />
+              )}
             </>
           )}
 
@@ -148,7 +186,11 @@ export default function AuthPage() {
 
         <Typography variant="body2" className="mt-2 text-center">
           {isSignup ? "Already have an account?" : "Don't have an account?"}
-          <Button variant="text" color="primary" onClick={() => setIsSignup(!isSignup)}>
+          <Button
+            variant="text"
+            color="primary"
+            onClick={() => setIsSignup(!isSignup)}
+          >
             {isSignup ? "Login" : "Sign Up"}
           </Button>
         </Typography>
